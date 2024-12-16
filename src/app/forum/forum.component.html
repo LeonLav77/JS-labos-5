@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="logged-in-user-data">
+        <div class="user-data">
+            <div class="user-info">
+                <h3>Bok {{ user.name }} !</h3>
+                <p>{{ user.email }}</p>
+            </div>
+        </div>
+        <div class="user-actions">
+            <button (click)="logout()">Logout</button>
+        </div>
+    </div>
+
+    <div class="adding-new-post-toggle">
+        <button (click)="toggleAddingNewPost()">Add new post</button>
+    </div>
+    <h3>Posts ({{ this.posts.length }}): </h3>
+    <div class="new-post-form" *ngIf="addingNewPost">
+        <form (submit)="addNewPost($event)">
+            <input type="text" name="title" placeholder="Title" required>
+            <textarea name="content" placeholder="Content" required></textarea>
+            <button type="submit">Add post</button>
+        </form>
+    </div>
+
+    <div class="edit-post-form" *ngIf="editingPost">
+        <form (submit)="updatePost($event)">
+            <input type="text" name="title" [(ngModel)]="editingPost.title" required>
+            <textarea name="content" [(ngModel)]="editingPost.content" required></textarea>
+            <button type="submit">Update post</button>
+            <button type="button" (click)="cancelEdit()">Cancel</button>
+        </form>
+    </div>
+
+    <div class="posts">
+        <div class="post" *ngFor="let post of posts">
+            <h3>
+                by 
+                <a [routerLink]="['/profile', post.userId]">
+                    {{ getUserNameById(post.userId) }}
+                </a>
+            </h3>
+            <h2>{{ post.title }}</h2>
+            <h4>{{ post.content }}</h4>
+            <p>at {{ post.timestamp }}</p>
+            <div class="post-actions" *ngIf="post.userId === user.id">
+                <button (click)="editPost(post)">Edit</button>
+                <button (click)="deletePost(post)">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="login-container">
+    <h2>Register</h2>
+    
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      
+      <div>
+        <label for="username">Username</label>
+        <input id="username" type="text" formControlName="username" />
+      </div>
+  
+      <div>
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password" />
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input id="confirm-password" type="password" formControlName="confirmPassword" />
+      </div>
+
+      <div>
+        <label for="name">name</label>
+        <input id="name" type="text" formControlName="name" />
+      </div>
+
+        <div>
+            <label for="email">Email</label>
+            <input id="email" type="email" formControlName="email" />
+        </div>
+      <div>
+        <button type="submit" [disabled]="registerForm.invalid">Register</button>
+      </div>
+    </form>
+    <div id="login-button">
+        <button type="button" class="clickable" routerLink="/login">login</button>
+    </div> 
+
+    <div *ngIf="error" class="error">
+      {{ error }}
+    </div>
+</div>
+  
